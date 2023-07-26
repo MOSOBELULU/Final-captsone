@@ -1,7 +1,28 @@
-import { PropTypes } from "prop-types";
-
+import  { useState, useEffect } from "react";
 
 export default function Poster(props) {
+  const [podcastData, setPodcastData] = useState([])
+  useEffect(() => {
+    fetch("https://podcast-api.netlify.app/shows")
+      .then(res => res.json())
+      .then(data => {
+        const mapData = data.map((datamapping) => (
+          <Poster 
+            key={datamapping.id}
+            titles={datamapping.title}
+            descriptions={datamapping.description}
+            season={datamapping.seasons}
+            images={datamapping.image}
+            genre={datamapping.genres}
+            updates={datamapping.updated}
+
+          />
+        ));
+        setPodcastData(mapData);
+      });
+  }, []); // The empty dependency array ensures this effect runs only once when the component mounts
+
+
   return (
     <div>
       <p>{props.id}</p>
@@ -14,12 +35,3 @@ export default function Poster(props) {
     </div>
   );
 }
-Poster.propTypes = {
-    id: PropTypes.number.isRequired,
-    titles: PropTypes.string.isRequired,
-    descriptions: PropTypes.string.isRequired,
-    season: PropTypes.number.isRequired,
-    images: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    updates: PropTypes.string.isRequired,
-  };

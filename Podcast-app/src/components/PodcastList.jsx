@@ -1,9 +1,10 @@
 import  { useState, useEffect } from "react";
 import Poster from "./Poster";
-import { PropTypes } from "prop-types";
 
-export default function Podcastlist({ podcasts }) {
+
+export default function PodcastList({ podcasts }) {
   const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     setIsLoading(true);
@@ -20,30 +21,21 @@ export default function Podcastlist({ podcasts }) {
       ) : (
         podcasts.map((item) => (
           <Poster
-            key={item._id}
-            id={item.id}
-            titles={item.title}
-            descriptions={item.description}
-            season={item.seasons}
-            images={item.image}
-            genre={item.genres}
-            updates={item.updated}
+            key={podcasts.id}
+            titles={podcasts.title}
+            descriptions={podcasts.description}
+            season={podcasts.seasons}
+            images={podcasts.image}
+            genre={podcasts.genres}
+            updates={podcasts.updated}
           />
         ))
-      )}
-    </div>
-  );
-}
+      )
+    )
+    
+    }
+    
+  
 
 
-Podcastlist.propTypes = {
-    podcasts: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      seasons: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      genres: PropTypes.string.isRequired,
-      updated: PropTypes.string.isRequired,
-    })).isRequired,
-  };
+
