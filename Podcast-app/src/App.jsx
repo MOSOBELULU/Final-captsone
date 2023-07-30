@@ -1,5 +1,5 @@
 
-import  { useState, useEffect } from 'react';
+
 import './App.css';
 import Poster from "./components/Poster";
 import NavBar from './components/NavBar';
@@ -13,10 +13,7 @@ export default function App() {
   return (
     <>
       <NavBar />
-      <div>
-        <PodcastList podcasts={podcastData} />
-        <Poster />
-      </div>
+        <PodcastList />
     </>
   );
 }
