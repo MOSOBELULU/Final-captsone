@@ -1,9 +1,9 @@
 
 
 import './App.css';
-import Poster from "./components/Poster";
-import NavBar from './components/NavBar';
+// import NavBar from './components/NavBar';
 import PodcastList from './components/PodcastList';
+import Footer from './components/Footer';
 
 export default function App() {
   
@@ -12,8 +12,8 @@ export default function App() {
   
   return (
     <>
-      <NavBar />
-        <PodcastList />
+        <PodcastList/>
+        <Footer />
     </>
   );
 }

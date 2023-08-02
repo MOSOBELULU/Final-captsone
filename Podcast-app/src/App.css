@@ -7,11 +7,12 @@ nav{
 }
 
 .images{
-    width: 150px;
+    width: 230px;
 }
 .Poster{
     display: flex;
     justify-content: center;
+    max-width: 400px;
    
 }
 .card{
@@ -19,6 +20,9 @@ nav{
     border-radius: 10px;
     padding-left: 10px;
     height:fit-content;
+    transition: all 0.3s ease;
+    
+    
 
 }
 
@@ -28,9 +32,35 @@ nav{
     gap: 20px;
     max-width: 1200px;
     margin-top: 20px;
+    justify-content: center;
   }
 
 .star{
     width: 20px;
     height: 20px;
+    cursor: pointer;
 }
+
+/* .expand{
+    cursor: pointer;
+    float:right;
+}
+
+.card.expanded {
+    z-index: 2;
+    transform: scale(1.2);
+    filter: brightness(1);
+    width: 400px; 
+    margin: 0 auto;
+}
+.card:not(.expanded) {
+    filter: blur(2px) brightness(0.7);
+  }
+
+  {
+
+  } */
+
+  .nav{
+    background-color: rgb(126, 78, 43);
+  }
