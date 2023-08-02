@@ -1,7 +1,7 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Poster from "./Poster";
 import Fuse from "fuse.js";
-import NavBar from "./NavBar"
+import NavBar from "./NavBar";
 
 const Genre = {
   1: "Personal Growth",
@@ -22,21 +22,22 @@ const PodcastList = () => {
   const [sortOption, setSortOption] = useState("");
   const [filterText, setFilterText] = useState("");
   const [filteredPodcasts, setFilteredPodcasts] = useState([]);
-  const [favorites, setFavorites] = useState([false]);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setPodcastData(data);
         setIsLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching podcast data:", error);
         setIsLoading(false);
       });
   }, []);
-{/*search */}
+
+  /*search */
   useEffect(() => {
     if (!filterText) {
       setFilteredPodcasts(podcastData);
@@ -46,10 +47,11 @@ const PodcastList = () => {
       };
       const fuse = new Fuse(podcastData, options);
       const result = fuse.search(filterText);
-      setFilteredPodcasts(result.map(item => item.item));
+      setFilteredPodcasts(result.map((item) => item.item));
     }
   }, [filterText, podcastData]);
-{/*sort*/}
+
+  /*sort*/
   const handleSort = (option) => {
     setSortOption(option);
     let sortedPodcasts = [...filteredPodcasts];
@@ -72,28 +74,42 @@ const PodcastList = () => {
     setFilteredPodcasts(sortedPodcasts);
   };
 
-  {/*formatDate */}
+  /*formatDate */
   const formatDate = (isDate) => {
-    const date = new Date(isDate)
-    const options = {year: "numeric", month: "long", day: "numeric"}
-    return date.toLocaleDateString(undefined, options)
-  }
-  {/*expand to show more description */}
-  const toggleExpand = (podcastId) => {
-    setExpandedPosterId(podcastId === expandedPosterId ? null : podcastId);
+    const date = new Date(isDate);
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return date.toLocaleDateString(undefined, options);
   };
 
-  {/*favorite function  adding and removing podcasts from favorites*/}
+  /*expand to show more description */
+const toggleExpand = (podcastId) => {
+  setExpandedPosterId((prevState) => (prevState === podcastId ? null : podcastId));
+};
+
+
+  /*favorite function  adding and removing podcasts from favorites*/
   const favoriteToggleHandler = (podcastId) => {
-    setFavorites((prevFavorites) => prevFavorites.includes(podcastId) ? prevFavorites.filter((id) => id !== podcastId) : [...prevFavorites, podcastId])
-  }
+    setFavorites((prevFavorites) =>
+      prevFavorites.includes(podcastId) ? prevFavorites.filter((id) => id !== podcastId) : [...prevFavorites, podcastId]
+    );
+
+    setFilteredPodcasts((prevFilteredPodcasts) =>
+      prevFilteredPodcasts.map((podcast) =>
+        podcast.id === podcastId ? { ...podcast, isFavorite: !podcast.isFavorite } : podcast
+      )
+    );
+  };
+
+  /*Store favorites in local storage whenever it changes*/
+  useEffect(() => {
+    localStorage.setItem("favoritePodcasts", JSON.stringify(favorites));
+  }, [favorites]);
 
   const favoritePodcasts = podcastData.filter((podcast) => favorites.includes(podcast.id));
 
   return (
     <div>
-            <NavBar favoritePodcasts={favoritePodcasts} 
-             />
+      <NavBar favoritePodcasts={favoritePodcasts} />
       <div className="sort-buttons">
         <button onClick={() => handleSort("az")}>Sort A-Z</button>
         <button onClick={() => handleSort("za")}>Sort Z-A</button>
@@ -112,7 +128,7 @@ const PodcastList = () => {
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          filteredPodcasts.map(podcast => (
+          filteredPodcasts.map((podcast) => (
             <Poster
               key={podcast.id}
               id={podcast.id}
@@ -120,19 +136,18 @@ const PodcastList = () => {
               descriptions={podcast.description}
               season={podcast.seasons}
               images={podcast.image}
-              genre={podcast.genres.map(id => Genre[id]).join(", ") || "unknown"}
+              genre={podcast.genres.map((id) => Genre[id]).join(", ") || "unknown"}
               updates={formatDate(podcast.updated)}
               isExpanded={expandedPosterId === podcast.id}
               onExpandClick={() => toggleExpand(podcast.id)}
-              isFavorite={favorites.includes(podcast.id)} 
-              onFavoriteClick={() =>favoriteToggleHandler(podcast.id)}
-
+              isFavorite={favorites.includes(podcast.id)}
+              onFavoriteClick={() => favoriteToggleHandler(podcast.id)}
             />
           ))
         )}
       </div>
     </div>
   );
-}
+};
 
 export default PodcastList;
