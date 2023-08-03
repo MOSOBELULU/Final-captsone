@@ -4,6 +4,7 @@ import Poster from "./Poster";
 import Fuse from "fuse.js";
 import NavBar from "./NavBar";
 import FavoritePodcast from "./Favorite";
+import Header from "./header";
 
 const Genre = {
   1: "Personal Growth",
@@ -26,7 +27,8 @@ const PodcastList = () => {
   const [filteredPodcasts, setFilteredPodcasts] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [showFavorites, setShowFavorites] = useState(false);
-  const [selectedGenre, setSelectedGenre] = useState("all")
+  const [selectedGenre, setSelectedGenre] = useState("all");
+  
 
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
@@ -192,6 +194,9 @@ const PodcastList = () => {
     ))}
   </select>
 </div>
+
+<Header />
+
             <div className="grid-container">
               {isLoading ? (
                 <p>Loading...</p>

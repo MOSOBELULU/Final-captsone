@@ -1,9 +1,23 @@
 /*eslint-disable*/
 import  { useState } from "react";
+
+const Genre = {
+  1: "Personal Growth",
+  2: "True Crime and Investigative Journalism",
+  3: "History",
+  4: "Comedy",
+  5: "Entertainment",
+  6: "Business",
+  7: "Fiction",
+  8: "News",
+  9: "Kids and Family",
+};
+
+
 const FavoritePodcast = ({ favoritePodcasts }) => {
-  const [sortOption, setSortOption] = useState("az");
-  const handleSort = (option) => {
-    setSortOption(option);
+const [sortOption, setSortOption] = useState("az");
+const handleSort = (option) => {
+setSortOption(option);
   };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -43,7 +57,7 @@ const FavoritePodcast = ({ favoritePodcasts }) => {
               <strong>{podcast.title}</strong>
               <img src={podcast.image} className="card--images" alt="Podcast" width="30%" />
       <p>Seasons: {podcast.seasons}</p>
-      <p>Genres: {podcast.genres}</p>
+      <p>Genres: {podcast.genres.map((genre) => Genre[genre]).join(",")}</p>
       <p>Updated: {podcast.updated}</p>
               Added on: {formatDate(podcast.addedDate)}
             </li>
