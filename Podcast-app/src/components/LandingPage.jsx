@@ -1,7 +1,20 @@
-import supabase from "./SupaBase";
+// /*eslint-disable*/
+// // import supabase from "../config/SupabaseClient";
+// // import { Login } from "./Login";
 
-export default function LandingPage() {
-    return (
-        <h1>lulu</h1>
-    )
-}
+// const LandingPage = ({Login}) =>{
+//     return (
+//         <div className="LandingPage">
+//             <h3>{Login.username}</h3>
+//             <h3>{Login.password}</h3>
+//         </div>
+//     )
+// } 
+// export default LandingPage
+
+
+
+
+
+
+

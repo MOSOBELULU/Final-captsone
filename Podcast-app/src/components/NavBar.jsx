@@ -1,8 +1,9 @@
-import { useState } from "react";
+/*eslint-disable*/
 import Icon from "@mui/material/Icon";
-import FavoritePodcast from "./Favorite";
+import { IconButton } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
-export default function NavBar({ favoritePodcasts, favorites, onShowFavoritesClick, onShowAllClick  }) {
+export default function NavBar({onToggleView}) {
   // const [expandedPosterId, setExpandedPosterId] = useState(null);
 
   // const toggleExpand = (podcastId) => {
@@ -11,22 +12,17 @@ export default function NavBar({ favoritePodcasts, favorites, onShowFavoritesCli
 
   return (
     <nav className="nav">
-      <Icon className="icon-logo" fontSize="50px">
-        mic
-      </Icon>
-      <button onClick={onShowFavoritesClick}>Go to Favorite Podcasts</button>
-      {favoritePodcasts.length > 0 ? (
-        <div>
-          <h3>Favorite Podcasts</h3>
-          <ul>
-            {favoritePodcasts.map((podcast) => (
-              <li key={podcast.id}>{podcast.title}</li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <button onClick={onShowAllClick}>Go Back</button>
-      )}
+      <div className="logo">
+        <IconButton onClick={onToggleView}>
+        <Icon fontSize="50px">mic</Icon>
+        <span>Lu-PODCAST</span>
+        </IconButton>
+
+        <IconButton onClick={onToggleView}>
+          <span>Favorite Podcasts</span>
+       <FavoriteIcon /> 
+        </IconButton>
+      </div>
     </nav>
   );
 }

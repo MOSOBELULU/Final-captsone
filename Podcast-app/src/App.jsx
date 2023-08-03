@@ -1,21 +1,35 @@
 
 
 import './App.css';
-// import NavBar from './components/NavBar';
-import LandingPage from './components/LandingPage';
 import PodcastList from './components/PodcastList';
-// import FavoritePodcasts from './components/Favorite';
 import Footer from './components/Footer';
+import Supa from './config/SupabaseClient';
+import { Supabase } from './config/SupabaseClient';
+import { useState, useEffect } from 'react';
+
+
 
 export default function App() {
-  
+  const [signUpState, setSignUpState] = useState('SignPhase')
+
+  useEffect(() => {
+    const authListener = Supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN" && session) {
+        console.log("User signed in successfully:", session.user.email);
+        setSignUpState('startPhase')
+      }
+    });
+    return () => {
+      authListener.unsubscribe;
+    };
+  }, []) 
   
 
   
   return (
     <>
-    {/* <button onClick={() => window.location.href = "/favorites"}>Go to Favorite Podcasts</button> */}
-        <LandingPage />
+    {signUpState ==='SignPhase' && <Supa />}
+      { signUpState ==='startPhase' && <div className="app"></div>}
         <PodcastList/>
         <Footer />
     </>
