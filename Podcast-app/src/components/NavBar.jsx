@@ -19,8 +19,8 @@ export default function NavBar({onToggleView}) {
         </IconButton>
 
         <IconButton onClick={onToggleView}>
+        <FavoriteIcon />
           <span>Favorite Podcasts</span>
-       <FavoriteIcon /> 
         </IconButton>
       </div>
     </nav>

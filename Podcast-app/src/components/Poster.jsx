@@ -1,6 +1,7 @@
 /*eslint-disable*/
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Card } from '@mui/material';
 
 export default function Poster(props) {
 
@@ -18,7 +19,7 @@ export default function Poster(props) {
 
 
   return ( 
-    <button className={`card ${props.isExpanded ? 'expanded' : 'blurred'}`} onClick={props.onClick}
+    <div className={`card ${props.isExpanded ? 'expanded' : 'blurred'}`} onClick={props.onClick}
     id={props.id}
     >
       
@@ -43,7 +44,7 @@ export default function Poster(props) {
       ) : (
         <ExpandMoreIcon onClick={handleExpandClick} className="expand" />
       )}
-    </button>
+    </div>
   );
 
 }

@@ -1,29 +1,35 @@
 nav{
-    height: 100px;
+  background-color: #d28080;
+  padding: 10px;
+  top: 0;
 }
 
-.icon-logo{
+.logo{
     width: 50px;
+    display: flex;
+    align-items: center;
+    color: #fff;
 }
 
 .images{
-    width: 230px;
+    width: 100px;
 }
+.poster-title{
+  font-size: medium;
+}
+
 .Poster{
     display: flex;
     justify-content: center;
-    max-width: 400px;
-   
+    max-width: 250px;
 }
+
 .card{
     background-color: rgb(134, 90, 64);
     border-radius: 10px;
     padding-left: 10px;
     height:fit-content;
     transition: all 0.3s ease;
-    
-    
-
 }
 
 .grid-container {
@@ -57,31 +63,80 @@ nav{
     filter: blur(2px) brightness(0.7);
   }
 
- 
-
   .nav{
     background-color: rgb(126, 78, 43);
+    padding: 10px;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px
   }
 
+  .logo {
+    display: flex;
+    align-items: center;
+    color: #000000;
+  }
+  
+  .logo span {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-left: 10px;
+   
+  }
+
+  .logo .MuiIcon-root {
+    font-size: 50px;
+    margin-right: 10px;
+    fill:#000000
+  }
+  
+  .logo .MuiSvgIcon-root {
+    fill: #000000;
+    font-size: 50px;
+  }
+  
+  .nav .MuiIconButton-root {
+    color: #fff;
+    justify-content: space-between;
+  }
+  
+  .nav .MuiIconButton-root:hover {
+    background-color: #f077de;
+  }
+   
+  /* Favorite Icon Styles */
+   .MuiSvgIcon-root {
+    fill: #fff;
+  }
+   
+  
+  
+  
+  
+  
+  
+
   /* Add a media query for smaller screen sizes like iPhone SE */
-@media (max-width: 320px) {
+/* @media (max-width: 320px) { */
     /* Adjust the grid layout for smaller screens */
-    .grid-container {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* .grid-container {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
       gap: 10px;
     }
   .images{
-    width: 50px;
-  }
+    width: 30px;
+  } */
     /* Reduce font size for smaller screens */
-    .poster-title {
+    /* .poster-title {
       font-size: 12px;
     }
-  
-    .poster-description {
+   */
+    /* .poster-description {
       font-size: 10px;
     }
-  }
+  } */
   
   /* Additional media queries for other small screen sizes if needed */
   

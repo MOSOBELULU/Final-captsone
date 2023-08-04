@@ -1,3 +1,6 @@
 body{
     background-color: rgb(227, 174, 144);
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }

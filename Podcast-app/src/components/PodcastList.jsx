@@ -205,7 +205,7 @@ const PodcastList = (props) => {
               {isLoading ? (
                 <p>Loading...</p>
               ) : (
-                displayedPodcasts.slice(0, numPodcastToShow).map((podcast) => (
+                displayedPodcasts.map((podcast) => (
                   <Poster
                     key={podcast.id}
                     id={podcast.id}
