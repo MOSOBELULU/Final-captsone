@@ -5,6 +5,9 @@ import Fuse from "fuse.js";
 import NavBar from "./NavBar";
 import FavoritePodcast from "./Favorite";
 import Header from "./header";
+import { IconButton } from "@mui/material";
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 
 const Genre = {
   1: "Personal Growth",
@@ -18,7 +21,7 @@ const Genre = {
   9: "Kids and Family",
 };
 
-const PodcastList = () => {
+const PodcastList = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [podcastData, setPodcastData] = useState([]);
   const [expandedPosterId, setExpandedPosterId] = useState(null);
@@ -28,7 +31,7 @@ const PodcastList = () => {
   const [favorites, setFavorites] = useState([]);
   const [showFavorites, setShowFavorites] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState("all");
-  
+  const [numPodcastToShow, setNumPodcastToShow] = useState(9);
 
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
@@ -43,29 +46,35 @@ const PodcastList = () => {
       });
   }, []);
 
+  // show more
+  const handleShowMoreClick = () => {
+    setNumPodcastToShow(numPodcastToShow + 9);
+  };
+
   // Search podcasts based on filter text
   useEffect(() => {
     if (!filterText) {
       // If filterText is empty, show podcasts based on the selected genre filter
       if (selectedGenre) {
         const filteredByGenre = podcastData.filter(
-          (podcast) => selectedGenre === "all" ||
-          podcast.genres.includes(Number(selectedGenre))
-      );
-      setFilteredPodcasts(filteredByGenre);
+          (podcast) =>
+            selectedGenre === "all" ||
+            podcast.genres.includes(Number(selectedGenre))
+        );
+        setFilteredPodcasts(filteredByGenre);
+      } else {
+        setFilteredPodcasts(podcastData);
+      }
     } else {
-      setFilteredPodcasts(podcastData);
+      // Search podcasts using Fuse.js with the title, description, and genres keys
+      const options = {
+        keys: ["title", "description", "genres"],
+      };
+      const fuse = new Fuse(podcastData, options);
+      const result = fuse.search(filterText);
+      setFilteredPodcasts(result.map((item) => item.item));
     }
-  } else {
-    // Search podcasts using Fuse.js with the title, description, and genres keys
-    const options = {
-      keys: ["title", "description", "genres"],
-    };
-    const fuse = new Fuse(podcastData, options);
-    const result = fuse.search(filterText);
-    setFilteredPodcasts(result.map((item) => item.item));
-  }
-}, [filterText, podcastData, selectedGenre]);
+  }, [filterText, podcastData, selectedGenre]);
 
   // Sort podcasts based on sort option
   const handleSort = (option) => {
@@ -128,7 +137,7 @@ const PodcastList = () => {
     setShowFavorites(false);
   };
 
-  //function to format date
+  // Function to format date
   const formatDate = (isDate) => {
     const date = new Date(isDate);
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -136,12 +145,8 @@ const PodcastList = () => {
   };
 
   // Filter the podcasts based on the showFavorites state
-  // const displayedPodcasts = showFavorites
-  //   ? filteredPodcasts.filter((podcast) => favorites.includes(podcast.id))
-  //   : filteredPodcasts;
-
   const favoritePodcasts = podcastData.filter((podcast) =>
-  favorites.includes(podcast.id)
+    favorites.includes(podcast.id)
   );
   const displayedPodcasts = showFavorites ? favoritePodcasts : filteredPodcasts;
 
@@ -151,16 +156,15 @@ const PodcastList = () => {
   }, [favorites]);
 
   const toggleView = () => {
-    setShowFavorites((prev) => !prev)
-  }
+    setShowFavorites((prev) => !prev);
+  };
+
+  const { title, description, seasons } = podcastData;
 
   return (
     <div>
       <>
-        <NavBar
-          onToggleView={toggleView}
-         
-        />
+        <NavBar onToggleView={toggleView} />
         {showFavorites ? (
           <FavoritePodcast favoritePodcasts={favoritePodcasts} />
         ) : (
@@ -180,28 +184,28 @@ const PodcastList = () => {
               />
             </div>
             <div className="genre-filter">
-  <label htmlFor="genre-select">Filter by Genre: </label>
-  <select
-    id="genre-select"
-    value={selectedGenre}
-    onChange={(e) => setSelectedGenre(e.target.value)}
-  >
-    <option value="">All Genres</option>
-    {Object.entries(Genre).map(([id, genre]) => (
-      <option key={id} value={id}>
-        {genre}
-      </option>
-    ))}
-  </select>
-</div>
+              <label htmlFor="genre-select">Filter by Genre: </label>
+              <select
+                id="genre-select"
+                value={selectedGenre}
+                onChange={(e) => setSelectedGenre(e.target.value)}
+              >
+                <option value="">All Genres</option>
+                {Object.entries(Genre).map(([id, genre]) => (
+                  <option key={id} value={id}>
+                    {genre}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-<Header />
+            <Header />
 
             <div className="grid-container">
               {isLoading ? (
                 <p>Loading...</p>
               ) : (
-                displayedPodcasts.map((podcast) => (
+                displayedPodcasts.slice(0, numPodcastToShow).map((podcast) => (
                   <Poster
                     key={podcast.id}
                     id={podcast.id}
@@ -209,6 +213,7 @@ const PodcastList = () => {
                     descriptions={podcast.description}
                     season={podcast.seasons}
                     images={podcast.image}
+                    onClick={props.HandlePreviewClick}
                     genre={
                       podcast.genres.map((id) => Genre[id]).join(", ") ||
                       "unknown"
@@ -225,8 +230,23 @@ const PodcastList = () => {
           </>
         )}
       </>
+      {filteredPodcasts.length > numPodcastToShow && (
+        <div className="show-more-button">
+          <IconButton onClick={handleShowMoreClick}>
+            <KeyboardDoubleArrowDownIcon className="expand-icon" />
+          </IconButton>
+        </div>
+      )}
+      {numPodcastToShow > 9 && (
+        <div className="back-to-top-button">
+          <KeyboardDoubleArrowUpIcon
+            onClick={handleBackToTopClick}
+            className="back-to-top-icon"
+          />
+        </div>
+      )}
     </div>
   );
-  
 };
+
 export default PodcastList;
