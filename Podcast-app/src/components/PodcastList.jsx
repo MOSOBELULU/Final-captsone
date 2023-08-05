@@ -121,7 +121,7 @@ const PodcastList = (props) => {
     setFilteredPodcasts((prevFilteredPodcasts) =>
       prevFilteredPodcasts.map((podcast) =>
         podcast.id === podcastId
-          ? { ...podcast, isFavorite: !podcast.isFavorite }
+          ? { ...podcast, isFavorite: !podcast.isFavorite, addedDate: !podcast.isFavorite ? getCurrentDate() : null  }
           : podcast
       )
     );
@@ -135,6 +135,11 @@ const PodcastList = (props) => {
   // Show all podcasts
   const handleShowAllClick = () => {
     setShowFavorites(false);
+  };
+
+  const getCurrentDate = () => {
+    const date = new Date();
+    return date.toISOString(); // Using ISO string format to store the date and time
   };
 
   // Function to format date
@@ -219,6 +224,7 @@ const PodcastList = (props) => {
                       "unknown"
                     }
                     updates={formatDate(podcast.updated)}
+                    addedDate={favorites.includes(podcast.id) ? podcast.addedDate : null}
                     isExpanded={expandedPosterId === podcast.id}
                     onExpandClick={() => toggleExpand(podcast.id)}
                     isFavorite={favorites.includes(podcast.id)}

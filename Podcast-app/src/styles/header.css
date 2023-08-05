@@ -56,3 +56,13 @@ body {
 .forward {
   right: 10px;
 }
+
+/* Styles for iPhone SE and similar small screens */
+@media screen and (max-width: 320px) {
+  .grid-container {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 10px;
+    max-width: 100%; /* Allow the grid to take the full width of the screen */
+    margin: 0 5px; /* Reduce margin for equal space on the left and right */
+  }
+}

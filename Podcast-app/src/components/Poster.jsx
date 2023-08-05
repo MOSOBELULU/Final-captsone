@@ -25,9 +25,10 @@ export default function Poster(props) {
       
       <h2 className='poster-title'>{props.titles}</h2>
       <img src={props.images} className="images"></img>
-      <p> Seasons: {props.season}</p>
-      <p>Genres: {props.genre}</p>
-      <p>Updated: {props.updates}</p>
+      <p className='poster-info'> Seasons: {props.season}</p>
+      <p className='poster-info'>Genres: {props.genre}</p>
+      <p className='poster-info'>Updated: {props.updates}</p>
+      {props.isFavorite && <p>Added on: {props.addedDate}</p>}
       {/* Favorite heart icon */}
       {props.isFavorite ? (
         <img src="./images/heart-filled.png" className="star" onClick={() => props.onFavoriteClick(props.id)} alt="Favorite" />

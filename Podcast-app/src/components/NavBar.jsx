@@ -13,14 +13,14 @@ export default function NavBar({onToggleView}) {
   return (
     <nav className="nav">
       <div className="logo">
-        <IconButton onClick={onToggleView}>
-        <Icon fontSize="50px">mic</Icon>
-        <span>Lu-PODCAST</span>
+        <IconButton className="LOGO" onClick={onToggleView}>
+        <Icon className="mic" fontSize="50px">mic</Icon>
+        <span className="logo-span">Lu-PODCAST</span>
         </IconButton>
 
-        <IconButton onClick={onToggleView}>
-        <FavoriteIcon />
-          <span>Favorite Podcasts</span>
+        <IconButton className="FAV" onClick={onToggleView}>
+        <FavoriteIcon className="heart" fontSize="50px" />
+          <span className="logo-span">Favorite Podcasts</span>
         </IconButton>
       </div>
     </nav>
