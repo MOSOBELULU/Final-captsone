@@ -58,8 +58,8 @@ setSortOption(option);
               <img src={podcast.image} className="card--images" alt="Podcast" width="30%" />
       <p>Seasons: {podcast.seasons}</p>
       <p>Genres: {podcast.genres.map((genre) => Genre[genre]).join(",")}</p>
-      <p>Updated: {podcast.updated}</p>
-              Added on: {formatDate(podcast.addedDate)}
+      <p>Updated: {formatDate(podcast.updated)}</p>
+      <p>Added on: {podcast.addedDate}</p>
             </li>
           ))}
         </ul>
