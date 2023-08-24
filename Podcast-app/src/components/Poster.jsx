@@ -15,9 +15,6 @@ export default function Poster(props) {
     event.stopPropagation(); // Prevent the click event from bubbling to the container div
     props.onFavoriteClick();
   };
-
-
-
   return ( 
     <div className={`card ${props.isExpanded ? 'expanded' : 'blurred'}`} onClick={props.onClick}
     id={props.id}
@@ -26,6 +23,7 @@ export default function Poster(props) {
       <h2 className='poster-title'>{props.titles}</h2>
       <img src={props.images} className="images"></img>
       <p className='poster-info'> Seasons: {props.season}</p>
+      <button>View Seasons</button>
       <p className='poster-info'>Genres: {props.genre}</p>
       <p className='poster-info'>Updated: {props.updates}</p>
       {props.isFavorite && <p>Added on: {props.addedDate}</p>}

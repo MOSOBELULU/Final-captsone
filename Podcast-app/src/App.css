@@ -1,11 +1,11 @@
 nav{
-  background-color: #e1d351;
   padding: 10px;
   top: 0;
 }
 
 .images{
-    width: 100px;
+    width: 270px;
+    
 }
 
 .poster-title{
@@ -14,7 +14,7 @@ nav{
 
 
 .card{
-    background-color: rgb(134, 90, 64);
+    background-color: rgb(48, 19, 66);
     border-radius: 10px;
     padding-left: 10px;
     height:fit-content;
@@ -52,7 +52,6 @@ nav{
 
 
   .nav{
-    background-color: #e1d351;
     padding: 10px;
   position: relative;
   top: 0;
@@ -103,7 +102,7 @@ nav{
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-top: 20px;
   }
 
   .sort-buttons button {
@@ -124,7 +123,7 @@ nav{
   .search-box {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-top: 20px;
   }
 
   .search-box input {
@@ -149,6 +148,7 @@ nav{
   .genre-filter {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
   }
 
   .genre-filter label {
@@ -180,13 +180,14 @@ nav{
   }
 }
 .nav {
-  background-color: rgb(126, 78, 43);
+ background-image: url(../public/images/heroimg4.jpg);
+ background-repeat: no-repeat;
+ background-size: cover;
   padding: 10px;
   position: relative;
   top: 0;
   left: 0;
-  width: 100%;
-  height: auto; /* Allow the height to adjust based on content */
+  height: 150px; /* Allow the height to adjust based on content */
 }
 
 .logo {
@@ -198,6 +199,9 @@ nav{
   color: #000000;
 }
 
+.seasonimage{
+  width: 200px;
+}
 
 
 
@@ -241,13 +245,13 @@ nav{
   }
 
   .card {
-    background-color: rgb(134, 90, 64);
+    background-color: rgb(255, 255, 255);
     border-radius: 10px;
     padding-left: 10px;
     /* height: fit-content; */ /* Remove fixed height */
-    max-width: 50%; /* Use max-width to ensure it fits within the screen */
+    max-width: 150%; /* Use max-width to ensure it fits within the screen */
     transition: all 0.3s ease;
-    margin-left: 80px;
+    /* margin-left: 10px; */
   }
   .sort-buttons button,
       .search-box input,

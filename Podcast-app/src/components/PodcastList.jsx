@@ -6,8 +6,7 @@ import NavBar from "./NavBar";
 import FavoritePodcast from "./Favorite";
 import Header from "./header";
 import { IconButton } from "@mui/material";
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import PodcastDetails from "./PodcastDetails";
 
 const Genre = {
   1: "Personal Growth",
@@ -31,8 +30,9 @@ const PodcastList = (props) => {
   const [favorites, setFavorites] = useState([]);
   const [showFavorites, setShowFavorites] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState("all");
-  const [numPodcastToShow, setNumPodcastToShow] = useState(9);
+  const [selectedPodcastId, setSelectedPodcastId] = useState();
 
+  //fetch data
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
       .then((res) => res.json())
@@ -46,10 +46,7 @@ const PodcastList = (props) => {
       });
   }, []);
 
-  // show more
-  const handleShowMoreClick = () => {
-    setNumPodcastToShow(numPodcastToShow + 9);
-  };
+
 
   // Search podcasts based on filter text
   useEffect(() => {
@@ -110,6 +107,13 @@ const PodcastList = (props) => {
     );
   };
 
+  // Function to format date
+  const formatDate = (isDate) => {
+    const date = new Date(isDate);
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return date.toLocaleDateString(undefined, options);
+  };
+
   // Handle favorite toggle - adding and removing podcasts from favorites
   const favoriteToggleHandler = (podcastId) => {
     setFavorites((prevFavorites) =>
@@ -121,7 +125,11 @@ const PodcastList = (props) => {
     setFilteredPodcasts((prevFilteredPodcasts) =>
       prevFilteredPodcasts.map((podcast) =>
         podcast.id === podcastId
-          ? { ...podcast, isFavorite: !podcast.isFavorite, addedDate: !podcast.isFavorite ? getCurrentDate() : null  }
+          ? {
+              ...podcast,
+              isFavorite: !podcast.isFavorite,
+              addedDate: !podcast.isFavorite ? getCurrentDate() : null,
+            }
           : podcast
       )
     );
@@ -137,16 +145,15 @@ const PodcastList = (props) => {
     setShowFavorites(false);
   };
 
+  // Function to handle click on a podcast poster
+  const handlePreviewClick = (podcastId) => {
+    console.log("Selected Podcast ID:", podcastId);
+    setSelectedPodcastId(podcastId);
+  };
+
   const getCurrentDate = () => {
     const date = new Date();
     return date.toISOString(); // Using ISO string format to store the date and time
-  };
-
-  // Function to format date
-  const formatDate = (isDate) => {
-    const date = new Date(isDate);
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return date.toLocaleDateString(undefined, options);
   };
 
   // Filter the podcasts based on the showFavorites state
@@ -164,8 +171,6 @@ const PodcastList = (props) => {
     setShowFavorites((prev) => !prev);
   };
 
-  const { title, description, seasons } = podcastData;
-
   return (
     <div>
       <>
@@ -178,7 +183,9 @@ const PodcastList = (props) => {
               <button onClick={() => handleSort("az")}>Sort A-Z</button>
               <button onClick={() => handleSort("za")}>Sort Z-A</button>
               <button onClick={() => handleSort("asc")}>Sort Ascending</button>
-              <button onClick={() => handleSort("desc")}>Sort Descending</button>
+              <button onClick={() => handleSort("desc")}>
+                Sort Descending
+              </button>
             </div>
             <div className="search-box">
               <input
@@ -206,6 +213,9 @@ const PodcastList = (props) => {
 
             <Header />
 
+            {selectedPodcastId && (
+              <PodcastDetails podcastId={selectedPodcastId} />
+            )}
             <div className="grid-container">
               {isLoading ? (
                 <p>Loading...</p>
@@ -218,13 +228,15 @@ const PodcastList = (props) => {
                     descriptions={podcast.description}
                     season={podcast.seasons}
                     images={podcast.image}
-                    onClick={props.HandlePreviewClick}
+                    onClick={() => handlePreviewClick(podcast.id)}
                     genre={
                       podcast.genres.map((id) => Genre[id]).join(", ") ||
                       "unknown"
                     }
                     updates={formatDate(podcast.updated)}
-                    addedDate={favorites.includes(podcast.id) ? podcast.addedDate : null}
+                    addedDate={
+                      favorites.includes(podcast.id) ? podcast.addedDate : null
+                    }
                     isExpanded={expandedPosterId === podcast.id}
                     onExpandClick={() => toggleExpand(podcast.id)}
                     isFavorite={favorites.includes(podcast.id)}
@@ -236,23 +248,9 @@ const PodcastList = (props) => {
           </>
         )}
       </>
-      {filteredPodcasts.length > numPodcastToShow && (
-        <div className="show-more-button">
-          <IconButton onClick={handleShowMoreClick}>
-            <KeyboardDoubleArrowDownIcon className="expand-icon" />
-          </IconButton>
-        </div>
-      )}
-      {numPodcastToShow > 9 && (
-        <div className="back-to-top-button">
-          <KeyboardDoubleArrowUpIcon
-            onClick={handleBackToTopClick}
-            className="back-to-top-icon"
-          />
-        </div>
-      )}
     </div>
   );
 };
 
 export default PodcastList;
+``

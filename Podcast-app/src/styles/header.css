@@ -23,6 +23,7 @@ body {
   width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+  
 }
 
 .carousel-container > * {
@@ -64,5 +65,8 @@ body {
     gap: 10px;
     max-width: 100%; /* Allow the grid to take the full width of the screen */
     margin: 0 5px; /* Reduce margin for equal space on the left and right */
+  }
+  .hero-section{
+    height: 10vh;
   }
 }
