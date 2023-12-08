@@ -31,6 +31,7 @@ const PodcastList = (props) => {
   const [showFavorites, setShowFavorites] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState("all");
   const [selectedPodcastId, setSelectedPodcastId] = useState();
+  
 
   //fetch data
   useEffect(() => {
@@ -171,10 +172,19 @@ const PodcastList = (props) => {
     setShowFavorites((prev) => !prev);
   };
 
+  const handleViewSeasonsClick = () => {
+    setCurrentPage("seasons");
+  };
+
+  const handleBackToMainClick = () => {
+    setCurrentPage("main");
+  };
+
   return (
     <div>
       <>
         <NavBar onToggleView={toggleView} />
+        
         {showFavorites ? (
           <FavoritePodcast favoritePodcasts={favoritePodcasts} />
         ) : (

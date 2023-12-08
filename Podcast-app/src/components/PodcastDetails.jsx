@@ -6,7 +6,6 @@ const PodcastDetails = ({ podcastId }) => {
   const [podcast, setPodcast] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [selectedSeasonEpisodes, setSelectedSeasonEpisodes] = useState(null);
-
   useEffect(() => {
     // Fetch podcast details using the provided API link
     fetch(`https://podcast-api.netlify.app/id/${podcastId}`)
