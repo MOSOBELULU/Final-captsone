@@ -6,6 +6,8 @@ Welcome to the Lu-Podcast! This platform is designed to revolutionize your podca
 ![Podcast](https://i.pinimg.com/originals/36/bc/c2/36bcc2de316834d6ae3ce370baf166a0.gif)
 
 ## Features Implemented
+![Features](https://github.com/MOSOBELULU/PodcastApp/blob/main/Screenshot%202023-12-08%20115341.png?raw=true)
+
 - **Responsive Design**: All views are optimized for mobile devices.
 - **Rich Favicon Integration**: Customized favicons for an enhanced browsing experience.
 - **Dynamic Metatags**: Engaging metadata for each show.
