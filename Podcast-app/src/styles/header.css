@@ -1,4 +1,4 @@
-/* General Styles */
+
 body {
   margin: 0;
   padding: 0;
@@ -63,8 +63,8 @@ body {
   .grid-container {
     grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: 10px;
-    max-width: 100%; /* Allow the grid to take the full width of the screen */
-    margin: 0 5px; /* Reduce margin for equal space on the left and right */
+    max-width: 100%; 
+    margin: 0 5px; 
   }
   .hero-section{
     height: 10vh;

@@ -1,7 +1,8 @@
 /*eslint-disable*/
+import { Link } from 'react-router-dom';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Card } from '@mui/material';
+
 
 export default function Poster(props) {
 
@@ -9,6 +10,12 @@ export default function Poster(props) {
     if (!props.isFavorite) {
       props.onExpandClick();
     }
+  };
+
+  // Function to handle click on a podcast poster
+  const handlePreviewClick = (podcastId) => {
+    console.log("Selected Podcast ID:", podcastId);
+    setSelectedPodcastId(podcastId);
   };
 
   const handleFavoriteClick = (event) => {
@@ -23,7 +30,9 @@ export default function Poster(props) {
       <h2 className='poster-title'>{props.titles}</h2>
       <img src={props.images} className="images"></img>
       <p className='poster-info'> Seasons: {props.season}</p>
+      
       <button>View Seasons</button>
+     
       <p className='poster-info'>Genres: {props.genre}</p>
       <p className='poster-info'>Updated: {props.updates}</p>
       {props.isFavorite && <p>Added on: {props.addedDate}</p>}

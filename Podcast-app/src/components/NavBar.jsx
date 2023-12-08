@@ -4,11 +4,6 @@ import { IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function NavBar({onToggleView}) {
-  // const [expandedPosterId, setExpandedPosterId] = useState(null);
-
-  // const toggleExpand = (podcastId) => {
-  //   setExpandedPosterId((prevState) => (prevState === podcastId ? null : podcastId));
-  // };
 
   return (
     <nav className="nav">
@@ -17,7 +12,6 @@ export default function NavBar({onToggleView}) {
         <Icon className="mic" fontSize="50px">mic</Icon>
         <span className="logo-span">Lu-PODCAST</span>
         </IconButton>
-
         <IconButton className="FAV" onClick={onToggleView}>
         <FavoriteIcon className="heart" fontSize="50px" />
           <span className="logo-span">Favorite Podcasts</span>
