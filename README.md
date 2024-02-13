@@ -31,13 +31,10 @@ Welcome to the Lu-Podcast! This platform is designed to revolutionize your podca
 1. Clone the repository.
 2. Navigate to the project directory.
 3. Run `npm install` or `yarn install` to install dependencies.
-4. Start the development server using `npm run dev` or `yarn dev`.
+4. Start the development server using `npm run dev` .
 
 ## Technologies Used
-- Next.js
 - React
-- MongoDB
-- Firebase
 - Supabase
 
 ## Acknowledgments
