@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import { useState, useEffect } from "react";
 import Poster from "./Poster";
-import Fuse from "fuse.js";
+// import Fuse from "fuse.js";
 import NavBar from "./NavBar";
 import FavoritePodcast from "./Favorite";
 import Header from "./header";
