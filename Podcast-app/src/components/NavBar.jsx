@@ -16,6 +16,7 @@ export default function NavBar({onToggleView}) {
         <FavoriteIcon className="heart" fontSize="50px" />
           <span className="logo-span">Favorite Podcasts</span>
         </IconButton>
+        <button className="btn">Signout</button>
       </div>
     </nav>
   );
